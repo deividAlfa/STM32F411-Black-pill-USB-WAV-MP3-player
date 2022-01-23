@@ -26,6 +26,12 @@ PCM5102A connections are as follows:<br>
 - DIN: PB15<br>
 - LRCK: PB12<br>
 
+Few waveforms:<br>
+
+<img src="/Readme_files/wave1.png?raw=true"><br>
+<img src="/Readme_files/wave2.png?raw=true"><br>
+<img src="/Readme_files/wave3.png?raw=true"><br><br>
+
 The SWO output is enabled on PB3, you can see the debug messages using SWO console.<br>
 You can see them without debugging, just connect the ST-Link utility, open "Prinf via SWO viewer", setting clock to 96000000Hz.<br>
 <img src="/Readme_files/swo.png?raw=true"><br>
