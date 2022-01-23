@@ -1,4 +1,4 @@
-## STM32F411 "Black Pill" USB WAV Player
+## STM32F411 "Black Pill" USB WAV/MP3 Player
 
 <!-- MarkdownTOC -->
 
@@ -27,7 +27,7 @@ PCM5102A connections are as follows:<br>
 - LRCK: PB12<br>
 
 The SWO output is enabled on PB3, you can see the debug messages using SWO console.<br>
-You can see them without debugging, just connect the ST-Link utility, open "Prinf via SWO viewer", setting clock to 96000000Hz.br>
+You can see them without debugging, just connect the ST-Link utility, open "Prinf via SWO viewer", setting clock to 96000000Hz.<br>
 <img src="/Readme_files/swo.png?raw=true"><br>
 
 For more details, check:
@@ -53,6 +53,6 @@ If you want to compile your own:<br>
 - It should recognize it and be ready for compiling or modifying for your own needs.<br>
 
  The code is stripped from most ST libraries, so you need to regenerate them.<br>
- Within the IDE, open cubeMX (Double click the .ioc file) file and click on the code generation button.<br>
+ Inside the IDE, open cubeMX (Double click the .ioc file) file and click on the code generation button.<br>
  <img src="/Readme_files/gen.png?raw=true"><br>
  CubeMx will make new code, and now it will compile correctly.<br>
