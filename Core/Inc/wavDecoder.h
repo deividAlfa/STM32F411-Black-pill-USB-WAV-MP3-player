@@ -36,6 +36,6 @@ typedef struct wav_header {
 uint8_t checkWav(void);
 uint8_t wavStart(void);
 void wavStop(void);
-uint32_t wavFillBuffer(int16_t* dest, uint16_t samples);
+uint32_t wavFillBuffer(audio_t* dest, uint32_t samples);
 
 #endif /* INC_WAVDECODER_H_ */

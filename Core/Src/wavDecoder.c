@@ -120,7 +120,7 @@ uint8_t wavStart(void){
     iprintf("WAV: Bad file!\n");
     return 0;
   }
-  systemStatus.PCMbuffer = malloc(WAV_PCMSamples*2);                      // *2 because 1sample = 16bits
+  systemStatus.PCMbuffer = malloc(WAV_PCMSamples*sizeof(audio_t));
   if(!systemStatus.PCMbuffer ){
     iprintf("WAV: Error allocating Buffer!\n");
     return 0;
@@ -136,10 +136,17 @@ void wavStop(void){
 }
 
 // Callback function, transfers PCM samples to the audio buffer
-uint32_t wavFillBuffer(int16_t* dest, uint16_t samples){
+uint32_t wavFillBuffer(audio_t* dest, uint32_t samples){
   UINT count;
-  if( f_read( systemStatus.file, (uint8_t*)dest,samples*2, &count ) != FR_OK ){
+  if( f_read( systemStatus.file, (uint8_t*)dest, samples*(sizeof(audio_t)), &count ) != FR_OK ){
     return 0;
   }
-  return count/2; // count is bytes, samples are 16 bit
+  count/=(sizeof(audio_t));
+  
+  if(sizeof(audio_t)==4){
+    for(uint32_t i=0; i<samples; i++)
+      dest[i] = (dest[i]<<16) | (dest[i]>>16);		// Fix for DMA order in 32-bit audio
+  }
+
+  return count; // count is bytes, samples are 32 bit
 }

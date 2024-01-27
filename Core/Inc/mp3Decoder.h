@@ -30,6 +30,6 @@ uint8_t readID3(void);
 uint8_t mp3Start(void);
 void mp3Stop(void);
 unsigned int RetrieveMP3Data(void *pMP3CompressedData, unsigned int nMP3DataSizeInChars, void *token);
-uint32_t mp3FillBuffer(int16_t* dest, uint16_t samples);
+uint32_t mp3FillBuffer(audio_t * dest, uint32_t samples);
 
 #endif /* INC_MP3DECODER_H_ */

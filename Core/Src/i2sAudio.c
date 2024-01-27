@@ -90,8 +90,7 @@ void AudioStart(void){
 	else{
 		if(systemStatus.remainingSamples < systemStatus.PCMSamples){					          // If less than full buffer size transferred
 			systemStatus.fileStatus = file_end;							                              // Reached end of file
-			padBuffer(&systemStatus.PCMbuffer[systemStatus.remainingSamples],\
-			    systemStatus.PCMSamples-systemStatus.remainingSamples, 0);		            // Fill the remaining data with silence
+			padBuffer(&systemStatus.PCMbuffer[systemStatus.remainingSamples], 0, systemStatus.PCMSamples-systemStatus.remainingSamples);		            // Fill the remaining data with silence
 		}
 		HAL_I2S_Transmit_DMA(i2sHandle, (uint16_t*)systemStatus.PCMbuffer, systemStatus.PCMSamples);   // Start I2S DMA
 		systemStatus.audioStatus=audio_play;							                // Status = playing
@@ -124,8 +123,9 @@ void AudioStop(void){
 }
 
 
-void padBuffer(int16_t* dest, int16_t data, uint16_t count){
-  uint32_t val = data;
+void padBuffer(audio_t* dest, audio_t data, uint16_t count){
+  static int32_t val;
+  val = data;
   HAL_DMA_Start_IT(&hdma_memtomem_dma2_stream0, (uint32_t)&val, (uint32_t)dest, count); // Start DMA transfer to fill the buffer, this will be very fast, we don't need further actions, HAL will clear/handle the DMA when the interrupt happens.
 }
 

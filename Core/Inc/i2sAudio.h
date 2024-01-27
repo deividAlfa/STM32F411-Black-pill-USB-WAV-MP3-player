@@ -59,6 +59,7 @@ typedef enum{
 
 }audioStatus_t;
 
+typedef int16_t audio_t;
 
 typedef struct{
 	driveStatus_t	 	driveStatus; 		    // 0 = no drive, 1=mounted, 2=scanned
@@ -68,11 +69,11 @@ typedef struct{
 	FIL             *file;              // Pointer to file
 	char            *currentFilename;   // Pointer to current filename
 
-  uint32_t        (*fillBuffer)(int16_t* dest, uint16_t samples);
+  uint32_t        (*fillBuffer)(audio_t* dest, uint32_t samples);
 	void            *decoder;           // Pointer to decoder
 	uint8_t         (*startDecoder)(void);// Pointer to stop decoder function
 	void            (*stopDecoder)(void);// Pointer to stop decoder function
-  int16_t         *PCMbuffer;         // Pointer to PCM buffer
+	audio_t         *PCMbuffer;         // Pointer to PCM buffer
 	uint16_t        PCMSamples;         // Buffer capacity
 	volatile uint8_t updateBuffer;      // To tell the handler to add new data to the buffer
 	volatile uint8_t underflow;
@@ -84,11 +85,13 @@ typedef struct{
 }system_t;
 
 
+extern system_t systemStatus;
+
 void initAudio(I2S_HandleTypeDef *hi2s);
 void handleAudio(void);
 void AudioStop(void);
 void AudioStart(void);
-void padBuffer(int16_t* dest, int16_t data, uint16_t count);
+void padBuffer(audio_t* dest, audio_t data, uint16_t count);
 void handleBuffer(uint16_t offset);
 
 

@@ -76,6 +76,6 @@ unsigned int RetrieveMP3Data(void *pMP3CompressedData, unsigned int nMP3DataSize
 }
 
 // Callback function, transfers PCM samples to the audio buffer
-uint32_t mp3FillBuffer(int16_t* dest, uint16_t samples){
+uint32_t mp3FillBuffer(audio_t* dest, uint32_t samples){
   return (SpiritMP3Decode( systemStatus.decoder, (int16_t *)dest, samples/2, NULL )*2); // 1 MP3 sample outputs 2 PCM samples (stereo)
 }

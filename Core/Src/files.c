@@ -69,9 +69,9 @@ void printFiles(void){
 
 void sortFS(void){
   char temp[13];
-  uint32_t Min;
+  uint32_t Min=0;
 
-  for(uint16_t j=0; j<fileCount-1; j++){         // Sort alphabetically
+  for(uint16_t j=0; j<fileCount; j++){         // Sort alphabetically
     Min = j;
     for(uint16_t i=j+1; i<fileCount; i++){
       if(strcmp(fileList[Min], fileList[i]) > 0){  // List[Min] > List[i]
@@ -173,7 +173,7 @@ void handleFS(void){
 	}
 
 	if((systemStatus.driveStatus==drive_error) || (systemStatus.driveStatus==drive_removed)){	// if drive removed or error
-	  iprintf("SYSTEM: Reoving mounting point\n");
+	  iprintf("SYSTEM: Removing mounting point\n");
 		f_mount(0, "", 1);															// remove mount point
 		if(systemStatus.driveStatus==drive_removed){
 			systemStatus.driveStatus=drive_nodrive;
@@ -182,6 +182,7 @@ void handleFS(void){
 			systemStatus.driveStatus=drive_unmounted;
 		}
 		AudioStop();
+    systemStatus.fileStatus=file_none;
 	}
 }
 
